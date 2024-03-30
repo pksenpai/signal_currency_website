@@ -47,7 +47,9 @@ DJANGO_APPS = [
 ]
 
 MY_APPS = [
-    
+    'apps.core.apps.CoreConfig',
+    'apps.signals.apps.SignalsConfig',
+    'apps.users.apps.UsersConfig',
 ]
 
 EXTERNAL_APPS_suffix = [
