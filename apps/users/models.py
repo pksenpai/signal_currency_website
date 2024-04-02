@@ -39,8 +39,9 @@ class CustomUser(AbstractUser, Account, LogicalBaseModel, TimeStampBaseModel):
     )
     
     email = models.EmailField(
-        unique       = True,
+        # unique       = True,
         blank        = True,
+        null         = True,
         verbose_name = _("Email Address")
     )
     
@@ -72,6 +73,7 @@ class Profile(LogicalBaseModel):
     score = models.SmallIntegerField(
         default    = None,
         null       = True,
+        blank      = True,
         validators = [
             MinValueValidator(-100),
             MaxValueValidator(100)

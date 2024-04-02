@@ -27,7 +27,8 @@ class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='signals')
     
     """\_____________[MAIN]_____________/"""
-    title = models.CharField(max_length=30)
+    title   = models.CharField(max_length=100)
+    summary = models.CharField(max_length=150)
     
     target_market = models.CharField(max_length=3, choices=MARKETS_CHOICES)
     token = models.CharField(max_length=30)
@@ -39,7 +40,7 @@ class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     price_action_analysis = models.TextField()
     pa_time_frame = models.PositiveSmallIntegerField()
     
-    hints = models.TextField()
+    hints = models.TextField(null=True, blank=True)
     like = models.IntegerField()
     
 
