@@ -1,0 +1,182 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Tabs Icon --> 
+    <link rel="shortcut icon" href="{% static 'core/pics/aqua_sig.png' %}" type="image/x-icon" />
+
+    <!-- CSS FILES -->                
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
+
+
+    <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'core/css/search_bar.css' %}" rel="stylesheet">
+    <link href="{% static 'core/css/navbar.css' %}" rel="stylesheet">
+
+    <!-- FOR adding more head settings later -->                
+    {% block head %}{% endblock %}
+  
+    <title>{% block title %}{% endblock %}</title>
+    
+  </head>
+  
+  <body>
+      
+  <header class="site-header">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} mt-5 py-2" style="position: fixed;">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+      <div class="container">
+        <div class="row justify-content-between">
+            
+          <div class="col-lg-12 col-12 d-flex align-items-center">
+            <a class="site-header-text d-flex justify-content-center align-items-center me-auto" href="{% url "core:home" %}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-activity" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2"/>
+              </svg>
+              
+              <span style="color: aqua; font-family:STJEDISE;">
+                Signacu
+              </span>
+            </a>
+            
+            <ul class="social-icon d-flex justify-content-center align-items-center me-auto">
+
+              {% comment %} SEARCH BAR {% endcomment %}
+              <form class="mb-3 pt-5" role="search" action="{{ request.path }}">
+                <div class="sb-animate">
+                  <input name="searched" type="search" class="form-control-dark" placeholder="Search Signals..." aria-label="Search">
+                  <div class="search"></div>
+                </div>
+              </form>
+            </ul>
+
+            <div>
+              {% if user.is_authenticated %}
+                <div class="dropdown text-end">
+                  <a href="#" class="d-block text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{% static "core/images/default.png" %}" alt="mdo" width="32" height="32" class="rounded-circle">
+                  </a>
+                  <ul class="dropdown-menu text-small" style="background-color: #b4d1e3;">
+                    <li><b class="dropdown-item text-center fw-bold pt-0">< {{ request.user }} ></b></li>
+                    <li><hr class="dropdown-divider mt-0 text-center"></li>
+                    <li><b class="dropdown-item text-center text-success fw-bold pt-0"> 10249.99$ </b></li>
+                    <li><hr class="dropdown-divider text-center"></li>
+                    <li><a class="dropdown-item text-center text-danger" href="">Logout</a></li>
+                  </ul>
+                </div>
+              {% else %}
+                <a class="custom-btn custom-border-btn border-end-0 btn" href="#">
+                  Sign Up
+                </a>
+                <a class="custom-btn custom-border-btn border-start-0 btn" href="#">
+                  Login
+                </a>
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">                
+        <div class="offcanvas-header">                    
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        
+        <div class="flex-shrink-0 p-3" style="width: 280px;">
+          <a href="/" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+            <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+            <span class="fs-5 fw-bold size-50">find by</span>
+          </a>
+        
+          <ul class="list-unstyled fw-normal pb-1 small">
+            <li class="mb-1 text-white">
+              <button class="text-white btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="false">
+                Categories
+              </button>
+              <div class="collapse" id="category-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                  {% comment %} {% for category in categories %}
+                    {% include 'categories.html' with category=category %}
+                  {% endfor %} {% endcomment %}
+                  {% for category in categories %}
+                  {% if not category.sub %}
+                  <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">{{ category.name }}</a></li>
+                  {% else %}
+                  <li class="ms-2"><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">{{ category.name }}</a></li>
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </li>
+            <li class="border-top my-3"></li>
+            <li class="mb-1 text-white">
+              <button class="text-white btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#seller-collapse" aria-expanded="false">
+                Sellers
+              </button>
+              <div class="collapse" id="seller-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+
+
+                  {% comment %} {% for seller in sellers %}
+                  <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">{{ seller.name }}</a></li>
+                  {% endfor %} {% endcomment %}
+                </ul>
+              </div>
+            </li>
+            <li class="border-top my-3"></li>
+          </ul>
+        </div>
+          
+          <div class="offcanvas-body d-flex flex-column justify-content-center align-items-center">
+            <nav>
+
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dynamic Body -->
+    {% block body %}{% endblock %}
+
+    {% if footer %}
+    {% block footer %}
+    <div class="position-absolute container top-100 start-50 translate-middle">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 my-4 border-top">
+        <p class="col-md-4 mb-0 text-white">© 2023 | Dev by PKPY</p>
+    
+        <ul class="nav col-lg-auto ms-lg-auto me-3">
+          <li><a href="#" class="nav-link px-2 text-white">HOME</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Dashboard</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Top Sellers</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Popular Posts</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Recommended Products</a></li>
+          </li>
+        </ul>
+      </footer>
+    </div>
+    {% endblock %}
+    {% endif %}
+  </body>
+  <!-- JAVASCRIPT FILES -->
+  <script src="{% static 'core/js/bootstrap.bundle.min.js' %}"></script>
+  {% block js %}{% endblock %}
+</html>

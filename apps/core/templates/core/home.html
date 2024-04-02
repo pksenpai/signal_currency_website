@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+{% block title %}Home|Signacu{% endblock %}
+
+{% block body %}
+  <!-- <h1>##################################################################################################################################################################################</h1>
+  <h1>##################################################################################################################################################################################</h1> -->
+    <hr class="my-5">
+    <hr class="my-5">
+    <hr class="my-5">
+    <div class="row mx-5" style="color: white;">
+      {% for signal in signals %}
+        <!-- <div class="w-100 px-0">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-primary-emphasis">World</strong>
+              <h3 class="mb-0">Featured post</h3>
+              <div class="mb-1 text-body-secondary">Nov 12</div>
+              <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+                Continue reading
+              </a>
+            </div>
+          </div>
+        </div> -->
+        
+        <div class="w-100 px-0 my-3">
+          <div class="dropdown-menu h-100 position-static d-flex flex-lg-row p-3 rounded-3 shadow" data-bs-theme="dark">
+          <div class="row g-0  rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-primary-emphasis">{{ signal.target_market }} ({{ signal.token }})</strong>
+              <h3 class="mb-0">{{ signal.title }}</h3>
+              <div class="mb-1 text-body-secondary">{{ signal.created_at }}</div>
+              <p class="card-text mb-auto">{{ signal.summary }}</p>
+              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+                Continue reading
+              </a>
+            </div>
+          </div>
+          </div>
+        </div>
+
+        <!-- <div>
+          <strong style="font-size: 40px;">{{ signal.title }}</strong>
+            <div class="dropdown-menu h-100 position-static d-flex flex-lg-row p-3 rounded-3 shadow-lg" data-bs-theme="dark">
+
+              <div class="d-none d-lg-block vr mx-1 opacity-10">&nbsp;</div>
+              <div class="col-lg-2 p-4">
+                <b style="font-size: 50px;">90%</b>
+              </div>
+              <div class="d-none d-lg-block vr mx-1 opacity-10">&nbsp;</div>
+              <div class="col-lg-2 p-4">
+                <b style="font-size: 50px;">134</b>
+              </div>
+            </div>
+            <a href="#" target="_blank">
+                <div class="link">View Seller Profile</div>
+            </a>
+          </div>
+        </div> -->
+      {% endfor %}
+    </div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
