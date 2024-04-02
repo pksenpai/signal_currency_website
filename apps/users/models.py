@@ -14,7 +14,7 @@ class Account(models.Model):
         ('S', 'Silver'),
         ('N', 'Normal'),
     )
-    user_type = models.CharField(max_length=1, choices=USER_TYPE_CHOICES)
+    user_type = models.CharField(max_length=1, default='N', choices=USER_TYPE_CHOICES)
     
     class Meta:
         abstract = True
