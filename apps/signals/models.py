@@ -66,7 +66,7 @@ class Comment(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
 class Reply(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     """\_____________[RELATIONS]_____________/"""
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='replies')
-    reply = models.ForeignKey('self', on_delete=models.CASCADE)
+    reply = models.ForeignKey('self', on_delete=models.CASCADE, related_name='replies')
     
     """\_____________[MAIN]_____________/"""
     body = models.CharField(max_length=150)
@@ -74,12 +74,12 @@ class Reply(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
 
 class Report(TimeStampBaseModel):
     """\_____________[RELATIONS]_____________/"""
-    reporter = models.ForeignKey(Profile, on_delete=models.DO_NOTHING, related_name='reports')
-    profile  = models.ForeignKey(Profile, on_delete=models.DO_NOTHING, related_name='reports')
+    reporter = models.ForeignKey(Profile, on_delete=models.DO_NOTHING, related_name='reporter')
+    profile  = models.ForeignKey(Profile, null=True, on_delete=models.DO_NOTHING, related_name='profile_reps')
     signal   = models.ForeignKey(Signal, null=True, on_delete=models.DO_NOTHING, related_name='reports')
     comment  = models.ForeignKey(Comment, null=True, on_delete=models.DO_NOTHING, related_name='reports')
     reply    = models.ForeignKey(Reply, null=True, on_delete=models.DO_NOTHING, related_name='reports')
-    
+
     """\_____________[MAIN]_____________/"""
     reason = models.CharField(max_length=100)
     
