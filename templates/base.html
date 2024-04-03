@@ -71,7 +71,7 @@
               {% if user.is_authenticated %}
                 <div class="dropdown text-end">
                   <a href="#" class="d-block text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{% static "core/images/default.png" %}" alt="mdo" width="32" height="32" class="rounded-circle">
+                    <img src="{{ image.url }}" alt="{{ alt }}" width="32" height="32" class="rounded-circle">
                   </a>
                   <ul class="dropdown-menu text-small" style="background-color: #b4d1e3;">
                     <li><b class="dropdown-item text-center fw-bold pt-0">< {{ request.user }} ></b></li>

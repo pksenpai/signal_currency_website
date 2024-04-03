@@ -1,12 +1,15 @@
 from django.db import models
-from apps.core.models import LogicalBaseModel, TimeStampBaseModel
+from apps.core.models import LogicalBaseModel, TimeStampBaseModel, StatusMixin
 from django.contrib.auth.models import AbstractUser
 
 from django.core.validators import RegexValidator
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
-class Account(models.Model):
+# from PIL import Image
+
+
+class AccountBaseModel(models.Model):
     """\_______________[MAIN]_______________/"""
     account_number = models.CharField(max_length=30)
     
@@ -20,8 +23,28 @@ class Account(models.Model):
     class Meta:
         abstract = True
     
+
+class ProfileImageBaseModel(LogicalBaseModel, StatusMixin):
+    image = models.ImageField(upload_to='images/profile/', default='images/profile/default.png')
+    alt   = models.CharField(max_length=255)
+
+    # def resize_image(self):
+    #     MAX_SIZE = (50, 50)
+    #     image = Image.open(self.src)
+    #     image.thumbnail(MAX_SIZE)
+    #     # save the resized image to the file system
+    #     # this is not the model save method!
+    #     image.save(self.src.path)
     
-class CustomUser(AbstractUser, Account, LogicalBaseModel, TimeStampBaseModel):
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     self.resize_image()
+        
+    class Meta:
+        abstract = True
+        
+   
+class CustomUser(AbstractUser, AccountBaseModel, LogicalBaseModel, TimeStampBaseModel):
     """\_______________[MAIN]_______________/"""
     CountryChoices = (('IR', 'Iran +98'),)
     country = models.CharField(max_length=2, choices=CountryChoices)
@@ -54,7 +77,7 @@ class CustomUser(AbstractUser, Account, LogicalBaseModel, TimeStampBaseModel):
         return self.username
 
 
-class Profile(LogicalBaseModel):
+class Profile(ProfileImageBaseModel):
     """\_____________[RELATIONS]_____________/"""
     follows = models.ManyToManyField(
         to           = 'self',
@@ -86,3 +109,4 @@ class Profile(LogicalBaseModel):
         return (self.first_name + ' ' + self.last_name).strip() or self.nick_name
 
     # add a method that check last and first name exists or not if not dont access input!
+
