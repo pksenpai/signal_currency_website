@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+{% block title %}Add{% endblock %}
+
+{% block body %}
+  <main>
+    <section class="hero-section d-flex justify-content-center">
+      <div class="container">
+        <div class="row mt-5">
+            <form class="custom-form" role="form" method="post" onsubmit="return validateForm()"> {% csrf_token %}
+              <h2 class="hero-title text-center text-info mb-4 pb-2"> New Signal </h2>
+
+              <div class="row">
+                <div class="col-lg-12 col-12">
+                  <div class="form-floating p-0">
+                    <input type="text" name="title" id="title" class="form-control" placeholder="Title" required="">
+
+                    <label for="title">Title</label>
+                  </div>
+
+                </div>
+                
+                <div class="col-lg-12 col-12">
+                  <div class="form-floating p-0">
+                    <input type="text" name="summary" id="summary" class="form-control" placeholder="Summary" required="">
+
+                    <label for="summary">Summary</label>
+                  </div>
+
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-12">
+                  <div class="form-floating">
+                    <input type="target_market" name="target_market" id="target_market" class="form-control" placeholder="Target Market" required="">
+                    
+                    <label for="target_market">Target Market</label>
+                  </div>
+                </div>
+                
+                <div class="col-lg-6 col-md-6 col-12">
+                  <div class="form-floating mb-4 p-0">
+                    <input type="token" name="token" id="token" class="form-control" placeholder="Token" required="">
+                    
+                    <label for="token">Token</label>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-12">
+                  <div class="form-floating mb-4 p-0">
+                    {{ form.investment_period }}
+                    <label for="investment_period">Investment Period</label>
+                  </div>
+                </div>
+                
+                <div class="col-lg-6 col-md-6 col-12">
+                  <div class="form-floating mb-4 p-0">
+                    {{ form.direction }}
+                    <label for="direction">Direction</label>
+                  </div>
+                </div>
+
+                <!-- for RichTextEditor(ckEditor) -->
+                {{ form.media }}
+                <!-- ---------------------------- -->
+                
+                <div class="col-lg-12 col-md-12 col-12">
+                  <label class="fw-bold" for="fundamental_analysis" style="color: white;">Fundamental Analysis</label>
+                  <div class="form-floating mb-4 p-0">
+                    {{ form.fundamental_analysis }}
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-12">
+                  <label class="fw-bold" for="technical_analysis" style="color: white;">Technical Analysis</label>
+                  <div class="form-floating mb-4 p-0">
+                    {{ form.technical_analysis }}
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-12">
+                  <label class="fw-bold" for="price_action_analysis" style="color: white;">Price Action Analysis</label>
+                  <div class="form-floating mb-4 p-0">
+                    {{ form.price_action_analysis }}
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-12">
+                  <div class="form-floating mb-4 p-0">
+                    {{ form.pa_time_frame }}
+                    <label for="pa_time_frame">Time Frame</label>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-12">
+                  <label class="fw-bold" for="hints" style="color: white;">Hint</label>
+                  <div class="form-floating mb-4 p-0">
+                    {{ form.hints }}
+                  </div>
+                </div>
+
+                <div class="bg-black rounded-3">
+                  {{ form.errors }}
+                </div>
+
+                <div class="form-check mb-4 ps-5">
+                  <input class="form-check-input border-1 border-dark-subtle" type="checkbox" value="" id="agreeCheckbox">
+                
+                  <label class="form-check-label fw-bold" for="agreeCheckbox">
+                    I agree to the Terms of Service and Privacy Policy.
+                  </label>
+                </div>
+
+                <div class="row justify-content-center align-items-center">
+                  <div class="col-lg-3 col-md-3 col-6 me-auto">
+                    <button type="submit" class="form-control">Submit</button>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-6">
+                    <p class="mb-0 text-center">Do you want to quit? <a href="{% url 'core:home' %}" class="ms-2">yes</a></p>
+                  </div>
+                </div>
+                
+              </div>
+            </form>
+              
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

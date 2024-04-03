@@ -2,9 +2,10 @@ from django.db import models
 from apps.core.models import LogicalBaseModel, TimeStampBaseModel, StatusMixin
 from apps.users.models import Profile
 
-# from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
+
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
@@ -35,14 +36,18 @@ class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     investment_period = models.CharField(max_length=1, choices=INVESTMENT_PERIOD_CHOICES, null=True, blank=True)
     direction = models.CharField(max_length=1, choices=DIRECTION_CHOICES, null=True, blank=True)
     
-    fundamental_analysis  = models.TextField()
-    technical_analysis    = models.TextField()
-    price_action_analysis = models.TextField()
+    fundamental_analysis  = RichTextUploadingField()
+    technical_analysis    = RichTextUploadingField()
+    price_action_analysis = RichTextUploadingField()
     pa_time_frame = models.PositiveSmallIntegerField()
     
-    hints = models.TextField(null=True, blank=True)
-    like = models.IntegerField()
+    hints = RichTextUploadingField(null=True, blank=True)
+    like = models.IntegerField(default=0)
     
+    def save(self, *args, **kwargs):
+        self.author = kwargs['user']
+        super(Signal, self).save(*args, **kwargs)
+
 
 class Comment(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     """\_____________[RELATIONS]_____________/"""
@@ -50,7 +55,7 @@ class Comment(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='comments')
     
     """\_____________[MAIN]_____________/"""
-    body = models.TextField(max_length=1000)
+    body = RichTextUploadingField(max_length=1000)
     
     probability = models.SmallIntegerField(
             default=None,
