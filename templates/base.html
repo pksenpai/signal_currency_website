@@ -28,11 +28,11 @@
     <!-- FOR adding more head settings later -->                
     {% block head %}{% endblock %}
   
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %}|Signacu</title>
     
   </head>
   
-  <body>
+  <body style="background: url('/static/core/pics/golden.jpg') no-repeat fixed; background-size: 100% 100%;">
       
   <header class="site-header">
       {% if messages %}
@@ -73,11 +73,11 @@
                   <a href="#" class="d-block text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ image.url }}" alt="{{ alt }}" width="32" height="32" class="rounded-circle">
                   </a>
-                  <ul class="dropdown-menu text-small" style="background-color: #b4d1e3;">
-                    <li><b class="dropdown-item text-center fw-bold pt-0">< {{ request.user }} ></b></li>
-                    <li><hr class="dropdown-divider mt-0 text-center"></li>
-                    <li><b class="dropdown-item text-center text-success fw-bold pt-0"> 10249.99$ </b></li>
-                    <li><hr class="dropdown-divider text-center"></li>
+                  <ul class="dropdown-menu text-small" style="background-color: #212529e5; border-color: white;">
+                    <li><b class="dropdown-item text-center text-primary fw-bold pt-0">< {{ request.user }} ></b></li>
+                    <li><hr class="dropdown-divider bg-white mt-0 text-center"></li>
+                    <li><a class="dropdown-item text-center text-primary fw-bold pt-0" href="{% url 'signals:add' %}"> New Signal </a></li>
+                    <li><hr class="dropdown-divider bg-white text-center"></li>
                     <li><a class="dropdown-item text-center text-danger" href="">Logout</a></li>
                   </ul>
                 </div>
@@ -177,6 +177,6 @@
     {% endif %}
   </body>
   <!-- JAVASCRIPT FILES -->
-  <script src="{% static 'core/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'bootstrap/bootstrap.bundle.min.js' %}"></script>
   {% block js %}{% endblock %}
 </html>

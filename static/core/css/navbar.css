@@ -296,9 +296,9 @@ strong {
 -----------------------------------------*/
 .hero-section {
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden;
   height: 100vh;
-  min-height: 675px;
+  min-height: 675px; */
   padding-top: 100px;
   padding-bottom: 100px;
 }
@@ -559,29 +559,7 @@ strong {
   RESPONSIVE STYLES               
 -----------------------------------------*/
 @media screen and (max-width: 991px) {
-  h1 {
-    font-size: 36px;
-  }
 
-  h2 {
-    font-size: 28px;
-  }
-
-  h3 {
-    font-size: 22px;
-  }
-
-  h4 {
-    font-size: 20px;
-  }
-
-  h5 {
-    font-size: 18px;
-  }
-
-  h6 {
-    font-size: 16px;
-  }
 
   .section-padding {
     padding-top: 50px;

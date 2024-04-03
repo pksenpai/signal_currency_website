@@ -63,13 +63,4 @@ class StatusMixin:
     @property
     def status(self) -> bool:
         return self.is_active and not self.is_deleted
-
-
-class ProfileImageBaseModel(LogicalBaseModel, StatusMixin):
-    """ low size images for User & Seller profiles """
-    src = models.ImageField(upload_to='images/profile/', default='images/profile/default.png')
-    alt = models.CharField(max_length=255)
-        
-    class Meta:
-        abstract = True
     
