@@ -73,19 +73,23 @@
                   <a href="#" class="d-block text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ image.url }}" alt="{{ alt }}" width="32" height="32" class="rounded-circle">
                   </a>
-                  <ul class="dropdown-menu text-small" style="background-color: #212529e5; border-color: white;">
-                    <li><b class="dropdown-item text-center text-primary fw-bold pt-0">< {{ request.user }} ></b></li>
-                    <li><hr class="dropdown-divider bg-white mt-0 text-center"></li>
-                    <li><a class="dropdown-item text-center text-primary fw-bold pt-0" href="{% url 'signals:add' %}"> New Signal </a></li>
-                    <li><hr class="dropdown-divider bg-white text-center"></li>
-                    <li><a class="dropdown-item text-center text-danger" href="">Logout</a></li>
+                  <ul class="dropdown-menu text-small p-0" style="background-color: #212529e5; border-color: white;">
+                    <li><b class="dropdown-item text-center fw-bold py-0 px-auto" style="color: #eac88f;">< {{ request.user }} ></b></li>
+                    <li><hr class="dropdown-divider bg-white m-0 text-center"></li>
+                    <li>
+                      <a class="dropdown-item text-center fw-bold py-2 px-auto" style="color: #eac88f; font-size: 15px;" href="{% url 'signals:add' %}">
+                         New Signal 
+                      </a>
+                    </li>
+                    <li><hr class="dropdown-divider bg-white m-0 text-center"></li>
+                    <li><a class="dropdown-item text-center text-danger" href="{% url 'users:logout' %}">Logout</a></li>
                   </ul>
                 </div>
               {% else %}
-                <a class="custom-btn custom-border-btn border-end-0 btn" href="#">
+                <a class="custom-btn custom-border-btn border-end-0 btn" href="{% url 'users:signup' %}">
                   Sign Up
                 </a>
-                <a class="custom-btn custom-border-btn border-start-0 btn" href="#">
+                <a class="custom-btn custom-border-btn border-start-0 btn" href="{% url 'users:login' %}">
                   Login
                 </a>
               {% endif %}

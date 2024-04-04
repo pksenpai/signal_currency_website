@@ -1,8 +1,6 @@
 from django.db import models
-
 from .managers import LogicalManager
 
-# from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 
