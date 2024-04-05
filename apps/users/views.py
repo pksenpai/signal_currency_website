@@ -9,12 +9,12 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
-from .forms import UserCreationFrom, UserLoginForm
+from .forms import UserRegisterForm, UserLoginForm
 from .models import CustomUser, Profile
 
 
 class UserSignupView(View):
-    form_class = UserCreationFrom
+    form_class = UserRegisterForm
     template_name = 'users/signup.html'
 
     def get(self, request):
@@ -32,10 +32,12 @@ class UserLoginView(View):
     template_name = 'users/login.html'
     
     def get(self, request):
-        context = {
-            'form': self.form_class,
-        }
-        return render(request, self.template_name, context)
+        if not request.user.is_authenticated:
+            context = {
+                'form': self.form_class,
+            }
+            return render(request, self.template_name, context)
+        return redirect('core:home')
     
     def post(self, request):
         print('$'*20, '001')

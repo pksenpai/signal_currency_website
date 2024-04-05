@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, AbstractUser
+from django.contrib.auth.models import AbstractBaseUser
 
 from django.core.validators import RegexValidator
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -8,9 +8,10 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
-from apps.core.models import LogicalBaseModel, TimeStampBaseModel, StatusMixin
-from .managers import UserManager
 # from PIL import Image
+from apps.core.models import LogicalBaseModel, TimeStampBaseModel, StatusMixin
+from .regexes import PHONE_NUMBER_REGEX
+from .managers import CustomUserManager
 
 
 class ProfileImageBaseModel(LogicalBaseModel, StatusMixin):
@@ -94,9 +95,12 @@ class Profile(ProfileImageBaseModel):
     # add a method that check last and first name exists or not if not dont access input!
 
 
-class CustomUser(AbstractBaseUser, AccountBaseModel, LogicalBaseModel, TimeStampBaseModel, StatusMixin):
-    """\_______________[MAIN]_______________/"""
-
+class CustomUser(AbstractBaseUser,
+                 AccountBaseModel,
+                 LogicalBaseModel,
+                 TimeStampBaseModel,
+                 StatusMixin):
+    
     username = models.CharField(
         _("username"),
         max_length=150,
@@ -109,9 +113,15 @@ class CustomUser(AbstractBaseUser, AccountBaseModel, LogicalBaseModel, TimeStamp
             "unique": _("A user with that username already exists."),
         },
     )
+
+    email = models.EmailField(
+        verbose_name=_("email address"),
+        max_length=150,
+        blank=True,
+    )
     
-    CountryChoices = (('IR', 'Iran +98'),)
-    country = models.CharField(max_length=2, choices=CountryChoices)
+    CountryChoices = (('+98|IR', 'IR'),)
+    country = models.CharField(max_length=6, choices=CountryChoices)
     
     phone_number = models.CharField(
         max_length   = 50,
@@ -119,44 +129,54 @@ class CustomUser(AbstractBaseUser, AccountBaseModel, LogicalBaseModel, TimeStamp
         verbose_name = "Phone Number",
         validators   = [
             RegexValidator(
-                regex=r'(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})',
+                regex=fr"{PHONE_NUMBER_REGEX}",
                 message="Invalid phone number format!",
             ),
-        ], 
+        ],
     )
-    
-    is_staff = models.BooleanField(
-        _("staff status"),
-        default=False,
-        help_text=_("Designates whether the user can log into this admin site."),
-    )
-    is_active = models.BooleanField(
-        _("active"),
-        default=True,
-        help_text=_(
-            "Designates whether this user should be treated as active. "
-            "Unselect this instead of deleting accounts."
-        ),
-    )
+
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
 
-    email = models.EmailField(
-        blank        = True,
-        null         = True,
-        verbose_name = _("Email Address")
+    is_admin = models.BooleanField(default=False)
+    is_active = models.BooleanField(
+        _("active"),
+        default=False,
+        help_text=_(
+            "this user is not active!"
+        ),
     )
-    
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ('phone_number',)
-    
-    def save(self, *args, **kwargs):
-        super().save()
-        Profile.objects.create(user=self, nick_name=self.username, is_active=True)
 
-    def email_user(self, subject, message, from_email=None, **kwargs):
-        """Send an email to this user."""
-        send_mail(subject, message, from_email, [self.email], **kwargs)
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["phone_number", "country"]
 
     def __str__(self):
         return self.username
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        # Simplest possible answer: All admins are staff
+        return self.is_admin
+    
+    
+#     is_staff = models.BooleanField(
+#         _("staff status"),
+#         default=False,
+#         help_text=_("Designates whether the user can log into this admin site."),
+#     )
+#     def email_user(self, subject, message, from_email=None, **kwargs):
+#         """Send an email to this user."""
+#         send_mail(subject, message, from_email, [self.email], **kwargs)
     
