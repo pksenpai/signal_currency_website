@@ -24,13 +24,12 @@ class TimeStampBaseModel(models.Model):
 
 
 class LogicalBaseModel(models.Model):
-    IS_ACTIVE_HELP_TEXT = "this option is not active!"
     
     is_active = models.BooleanField(
         _("active"),
         default=False,
         help_text=_(
-            IS_ACTIVE_HELP_TEXT
+            "this option is not active!"
         ),
     )
     

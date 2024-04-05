@@ -48,7 +48,7 @@ DJANGO_APPS = [
 
 MY_APPS = [
     'apps.core.apps.CoreConfig',
-    'apps.signals.apps.SignalsConfig',
+    'apps.posts.apps.PostsConfig',
     'apps.users.apps.UsersConfig',
 ]
 

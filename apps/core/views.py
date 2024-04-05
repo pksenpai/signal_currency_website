@@ -1,4 +1,4 @@
-# from apps.signals.models import Signal
+from apps.posts.models import Signal
 
 from django.views import View
 
@@ -9,9 +9,10 @@ class Home(View):
     template_name = 'core/home.html'
     
     def get(self, request):
-        # signals = Signal.objects.all()
+        signals = Signal.objects.all()
         context = {
-            # 'signals': signals
+            'signals': signals
         }
         
         return render(request, self.template_name, context)
+
