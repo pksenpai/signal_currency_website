@@ -36,7 +36,7 @@ class ProfileImageBaseModel(LogicalBaseModel, StatusMixin):
 
 class AccountBaseModel(models.Model):
     """\_______________[MAIN]_______________/"""
-    account_number = models.CharField(max_length=30)
+    account_number = models.CharField(max_length=30, blank=True, null=True)
     
     USER_TYPE_CHOICES = (
         ('G', 'Golden'),

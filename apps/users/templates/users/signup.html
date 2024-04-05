@@ -15,7 +15,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 col-12 mx-auto">
-            <form class="custom-form" role="form" method="post" onsubmit="return validateForm()"> {% csrf_token %}
+            <form class="custom-form" role="form" method="post" onsubmit="return validateForm()" novalidate> {% csrf_token %}
               <h2 class="hero-title text-center text-info mb-4 pb-2"> Signup </h2>
 
               <div class="row">
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="row justify-content-center align-items-center">
-                  <div class="col-lg-5 col-md-5 col-5 ms-auto">
+                  <div class="col-lg-5 col-md-5 col-5">
                     <button type="submit" class="form-control">Submit</button>
                   </div>
 

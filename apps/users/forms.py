@@ -13,7 +13,13 @@ class UserRegisterForm(forms.ModelForm): # C
     class Meta:
         model = User
         exclude = (
-            'password', 'email', 'date_joined', 'is_admin', 'is_active'
+            'account_number',
+            'user_type', 
+            'password',
+            'email',
+            'date_joined',
+            'is_admin',
+            'is_active'
         )
         
         widgets = {

@@ -1,4 +1,5 @@
 {% load static %}
+{% load base_tags %}
 
 <!doctype html>
 <html lang="en">
@@ -32,16 +33,28 @@
     
   </head>
   
-  <body style="background: url('/static/core/pics/golden.jpg') no-repeat fixed; background-size: 100% 100%;">
+  <body style="background: url('/static/core/pics/{{ request.path|path_spliter:-2 }}.jpg') no-repeat fixed; background-size: 100% 100%;">
       
-  <header class="site-header">
-      {% if messages %}
-        {% for message in messages %}
-          <div class="alert alert-{{ message.tags }} mt-5 py-2" style="position: fixed;">
-            {{ message }}
-          </div>
-        {% endfor %}
-      {% endif %}
+    <header class="site-header">
+      <div class="mt-5" style="position: fixed;">
+        <br class="mt-4">
+        {% if messages %}
+          {% for message in messages %}
+            {% if 'success' in message.tags %}
+              <div class="alert alert-{{ message.tags }} py-2">
+                {{ message }}
+              </div>
+            {% endif %}
+
+            {% if 'info' in message.tags %}
+              <div class="alert alert-{{ message.tags }} py-2">
+                {{ message }}
+              </div>
+            {% endif %}
+          {% endfor %}
+
+        {% endif %}
+      </div>
       <div class="container">
         <div class="row justify-content-between">
             
