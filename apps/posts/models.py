@@ -1,9 +1,12 @@
 from django.db import models
-from apps.core.models import LogicalBaseModel, TimeStampBaseModel, StatusMixin
-from apps.users.models import Profile
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
+
+from apps.core.models import LogicalBaseModel, TimeStampBaseModel, StatusMixin
+from apps.users.models import Profile
+
+from ckeditor.fields import RichTextField
 
 
 class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
@@ -51,15 +54,18 @@ class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     investment_period = models.CharField(max_length=1, choices=INVESTMENT_PERIOD_CHOICES, null=True, blank=True)
     direction = models.CharField(max_length=1, choices=DIRECTION_CHOICES, null=True, blank=True)
     
-    fundamental_analysis  = models.TextField()
-    technical_analysis    = models.TextField()
-    price_action_analysis = models.TextField()
+    fundamental_analysis  = RichTextField()
+    technical_analysis    = RichTextField()
+    price_action_analysis = RichTextField()
     
     pa_time_frame = models.PositiveSmallIntegerField(default=0, choices=TIME_FRAMES)
     
-    hints = models.TextField(null=True, blank=True)
+    hints = RichTextField(null=True, blank=True)
     like = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.title
+    
 
 class Comment(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     """\_____________[RELATIONS]_____________/"""
@@ -67,7 +73,7 @@ class Comment(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='comments')
     
     """\_____________[MAIN]_____________/"""
-    body = models.TextField(max_length=1000)
+    body = RichTextField(max_length=1000)
     
     probability = models.SmallIntegerField(
             default=None,
@@ -79,7 +85,10 @@ class Comment(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
         ) # 0% to 100%
     
     like = models.IntegerField(default=0) # can be negative(-)
-
+    
+    def __str__(self):
+        return str(self.signal)
+    
 
 class Reply(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     """\_____________[RELATIONS]_____________/"""
@@ -88,6 +97,9 @@ class Reply(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     
     """\_____________[MAIN]_____________/"""
     body = models.CharField(max_length=150)
+    
+    def __str__(self):
+        return str(self.comment) or str(self.reply)
 
 
 class Report(TimeStampBaseModel):
@@ -100,4 +112,7 @@ class Report(TimeStampBaseModel):
 
     """\_____________[MAIN]_____________/"""
     reason = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.reason
     

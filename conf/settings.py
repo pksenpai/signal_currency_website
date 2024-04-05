@@ -53,7 +53,7 @@ MY_APPS = [
 ]
 
 EXTERNAL_APPS_suffix = [
-
+    'ckeditor',
 ]
 
 INSTALLED_APPS = EXTERNAL_APPS_prefix + DJANGO_APPS + MY_APPS + EXTERNAL_APPS_suffix
@@ -116,7 +116,6 @@ LANGUAGES = [
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 
-
 """ Static files (CSS, JavaScript, Images) """
 STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -124,6 +123,15 @@ STATIC_URL = 'static/'
 """ Media files (Video, Image, Gif &...) """
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = 'media/'
+
+""" ckEditor for RichTextFields """
+CKEDITOR_CONFIGS = {
+    'default': {
+        # 'skin': 'moono',
+        'toolbar': 'full',
+    }
+}
+
 
 """ Default primary key field type """
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
