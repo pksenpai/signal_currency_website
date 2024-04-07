@@ -10,6 +10,6 @@ def create_profile(sender, **kwargs):
         Profile.objects.create(
             user=user,
             nick_name=user.username,
-            is_active=False,
+            is_active=True,
         )
 

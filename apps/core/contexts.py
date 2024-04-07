@@ -13,10 +13,4 @@ def profile_image(request):
         return context
     return {}
 
-# def background_image(request):
-#     context = {
-#         "background_image": f"/static/core/pics/{request.path}.jpg"
-#     }
-#     return context
-    
     
