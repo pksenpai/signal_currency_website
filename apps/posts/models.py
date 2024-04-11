@@ -2,6 +2,7 @@ from django.db import models
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone as tz
 
 from apps.core.models import LogicalBaseModel, TimeStampBaseModel, StatusMixin
 from apps.users.models import Profile
@@ -46,8 +47,12 @@ class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='signals')
     
     """\_____________[MAIN]_____________/"""
-    title   = models.CharField(max_length=100)
-    summary = models.CharField(max_length=150)
+    title      = models.CharField(max_length=100)
+    summary    = models.CharField(max_length=150)
+    slug_title = models.SlugField(unique=True)
+    
+    is_open = models.BooleanField(default=True)
+    goal_datetime = models.DateTimeField()
     
     token = models.CharField(max_length=30)
     target_market = models.CharField(max_length=3, choices=TARGET_MARKETS)
@@ -62,7 +67,11 @@ class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     
     hints = RichTextField(null=True, blank=True)
     like = models.IntegerField(default=0)
-
+    
+    def expire_signal(self):
+        if tz.now() >= self.goal_datetime:
+            self.is_open = False
+    
     def __str__(self):
         return self.title
     

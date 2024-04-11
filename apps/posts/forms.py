@@ -7,16 +7,17 @@ from apps.users.models import Profile
 
 
 class CreateSignalForm(forms.ModelForm):
-    
+
     class Meta:
         model = Signal
-        exclude = ('author', 'like')
+        exclude = ('author', 'slug_title', 'like')
         
         widgets = {
             'target_market': forms.Select(attrs={'class': 'form-control'}),
             'investment_period': forms.Select(attrs={'class': 'form-control'}),
             'direction': forms.Select(attrs={'class': 'form-control'}),
             'pa_time_frame': forms.Select(attrs={'class': 'form-control'}),
+            'goal_datetime':forms.TextInput(attrs={'type':'datetime-local'}),
         }
     
     def save(self, commit=True, **kwargs):
@@ -29,12 +30,22 @@ class CreateSignalForm(forms.ModelForm):
             raise ValidationError("nice try!, but you are not authenticated!")
         
         user_profile = Profile.objects.get(user=user)
+        last_id = Signal.objects.archive().latest('id').id
         
+        """ author is who creating this signal """
         signal.author = user_profile
+        
+        """ remove the start and end spaces """
+        signal.title = signal.title.strip()
+        
+        """ slugify title for url by underscore & signal_id """
+        signal.slug_title = '_'.join(signal.title.split()) + str(last_id + 1)
+        
+        """ active or unactive signal at the first """
         signal.is_active = True
         
         if commit:
             signal.save()
         
-        return signal            
+        return signal
     

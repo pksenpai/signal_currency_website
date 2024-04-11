@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.views import View
 
 from django.utils.translation import gettext_lazy as _
@@ -31,4 +31,13 @@ class AddSignalView(View):
             return redirect('core:home') # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
         return render(request, self.template_name, {'form': form})
+    
+class DetailSignalView(View):
+    
+    def get(self, request, slug):
+        return HttpResponse("Hello world!")
+    
+    def post(self, request, slug): # comments
+        pass
+    
     

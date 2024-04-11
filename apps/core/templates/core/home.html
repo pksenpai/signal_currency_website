@@ -19,7 +19,7 @@
               <h3 class="mb-0">{{ signal.title }}</h3>
               <div class="mb-1 text-body-secondary">{{ signal.created_at }}</div>
               <p class="card-text mb-auto">{{ signal.summary }}</p>
-              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+              <a href="{% url 'posts:details' signal.slug_title %}" class="icon-link gap-1 icon-link-hover stretched-link">
                 read more...
               </a>
             </div>
@@ -34,7 +34,7 @@
               <h3 class="mb-0">{{ signal.title }}</h3>
               <div class="mb-1 text-body-secondary">{{ signal.created_at }}</div>
               <p class="card-text mb-auto">{{ signal.summary }}</p>
-              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+              <a href="{% url 'posts:details' signal.slug_title %}" class="icon-link gap-1 icon-link-hover stretched-link">
                 read more...
               </a>
             </div>
@@ -55,7 +55,7 @@
                 <b style="font-size: 50px;">134</b>
               </div>
             </div>
-            <a href="#" target="_blank">
+            <a href="{% url 'posts:details' signal.slug_title %}" target="_blank">
                 <div class="link">View Seller Profile</div>
             </a>
           </div>
