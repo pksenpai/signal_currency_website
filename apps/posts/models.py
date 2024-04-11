@@ -49,8 +49,8 @@ class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     title   = models.CharField(max_length=100)
     summary = models.CharField(max_length=150)
     
-    target_market = models.CharField(max_length=3, choices=TARGET_MARKETS)
     token = models.CharField(max_length=30)
+    target_market = models.CharField(max_length=3, choices=TARGET_MARKETS)
     investment_period = models.CharField(max_length=1, choices=INVESTMENT_PERIOD_CHOICES, null=True, blank=True)
     direction = models.CharField(max_length=1, choices=DIRECTION_CHOICES, null=True, blank=True)
     

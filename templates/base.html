@@ -69,16 +69,17 @@
               </span>
             </a>
             
-            <ul class="social-icon d-flex justify-content-center align-items-center me-auto">
-
-              {% comment %} SEARCH BAR {% endcomment %}
-              <form class="mb-3 pt-5" role="search" action="{{ request.path }}">
-                <div class="sb-animate">
-                  <input name="searched" type="search" class="form-control-dark" placeholder="Search Signals..." aria-label="Search">
-                  <div class="search"></div>
-                </div>
-              </form>
-            </ul>
+            {% comment %} SEARCH BAR {% endcomment %}
+            {% if request.path == "/" %}
+              <ul class="social-icon d-flex justify-content-center align-items-center me-auto">
+                <form class="mb-3 pt-5" role="search" action="{{ request.path }}">
+                  <div class="sb-animate">
+                    <input name="searched" type="search" class="form-control-dark" placeholder="Search Signals..." aria-label="Search">
+                    <div class="search"></div>
+                  </div>
+                </form>
+              </ul>
+            {% endif %}
 
             <div>
               {% if user.is_authenticated %}
