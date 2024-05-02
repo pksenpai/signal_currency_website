@@ -13,11 +13,15 @@ class CreateSignalForm(forms.ModelForm):
         exclude = ('author', 'slug_title', 'like')
         
         widgets = {
-            'target_market': forms.Select(attrs={'class': 'form-control'}),
-            'investment_period': forms.Select(attrs={'class': 'form-control'}),
-            'direction': forms.Select(attrs={'class': 'form-control'}),
-            'pa_time_frame': forms.Select(attrs={'class': 'form-control'}),
-            'goal_datetime':forms.TextInput(attrs={'type':'datetime-local'}),
+            'target_market': forms.Select(attrs={'required': True, 'class': 'form-control'}),
+            'investment_period': forms.Select(attrs={'required': True, 'class': 'form-control'}),
+            'direction': forms.Select(attrs={'required': True, 'class': 'form-control'}),
+            'pa_time_frame': forms.Select(attrs={'required': True, 'class': 'form-control'}),
+            
+            'max_range': forms.NumberInput(attrs={'type': 'number'}),
+            'min_range': forms.NumberInput(attrs={'type': 'number'}),
+            
+            'goal_datetime':forms.TextInput(attrs={'required': True, 'type':'datetime-local'}),
         }
     
     def save(self, commit=True, **kwargs):

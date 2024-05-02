@@ -12,19 +12,6 @@
     <hr class="my-5">
     <div class="row mx-5" style="color: white;">
       {% for signal in signals %}
-        <!-- <div class="w-100 px-0">
-          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-primary-emphasis">{{ signal.target_market }} ({{ signal.token }})</strong>
-              <h3 class="mb-0">{{ signal.title }}</h3>
-              <div class="mb-1 text-body-secondary">{{ signal.created_at }}</div>
-              <p class="card-text mb-auto">{{ signal.summary }}</p>
-              <a href="{% url 'posts:details' signal.slug_title %}" class="icon-link gap-1 icon-link-hover stretched-link">
-                read more...
-              </a>
-            </div>
-          </div>
-        </div> -->
         
         <div class="w-100 px-0 my-3">
           <div class="dropdown-menu h-100 position-static d-flex flex-lg-row p-3 rounded-3 shadow" data-bs-theme="dark">
@@ -41,6 +28,7 @@
           </div>
           </div>
         </div>
+
 
         <!-- <div>
           <strong style="font-size: 40px;">{{ signal.title }}</strong>

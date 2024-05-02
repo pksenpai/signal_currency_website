@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+  <hr class="my-5">
+  <hr class="my-5">
+  <hr class="my-5">
+  <div class="row mx-5" style="color: white;">
+    <div class="w-100 px-0 my-3">
+      <div class="dropdown-menu h-100 position-static d-flex flex-lg-row p-3 rounded-3 shadow" data-bs-theme="dark">
+      <div class="row g-0 rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h2 class="mb-0">
+            <span class="me-2">{{ signal.title }} </span>
+            {% if signal.direction == "U" %}
+              {% if signal.max_range and signal.min_range %}
+                <span style="color: lime; font-size: 30px;">{{ signal.max_range }}-{{ signal.min_range }}</span>
+              {% else %}
+                <span style="color: lime; font-size: 30px;">?</span>
+              {% endif %}
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="lime" class="bi bi-graph-up-arrow ms-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M0 0h1v15h15v1H0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5"/>
+              </svg>
+            {% else %}
+              {% if signal.max_range and signal.min_range %}
+                <span style="color: red; font-size: 30px;">{{ signal.max_range }}-{{ signal.min_range }}</span>
+              {% else %}
+                <span style="color: red; font-size: 30px;">?</span>
+              {% endif %}
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-graph-down-arrow" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M0 0h1v15h15v1H0zm10 11.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-1 0v2.6l-3.613-4.417a.5.5 0 0 0-.74-.037L7.06 8.233 3.404 3.206a.5.5 0 0 0-.808.588l4 5.5a.5.5 0 0 0 .758.06l2.609-2.61L13.445 11H10.5a.5.5 0 0 0-.5.5"/>
+              </svg>
+            {% endif %}
+          </h2>
+          <strong class="d-inline-block mb-2 text-primary-emphasis">{{ signal.target_market }} ({{ signal.token }})</strong>
+
+          <div class="mb-1 text-body-secondary">Goal <b>{{ signal.goal_datetime }}</b></div>
+          
+          <br>
+          
+          <b class="d-inline-block mb-2 text-primary-emphasis">Fundamental Analysis</b>
+          <p class="card-text mb-auto">{{ signal.fundamental_analysis|safe }}</p>
+          
+          <b class="d-inline-block mb-2 text-primary-emphasis">Technical Analysis</b>
+          <p class="card-text mb-auto">{{ signal.technical_analysis|safe }}</p>
+          
+          <b class="d-inline-block mb-2 text-primary-emphasis">Price Action Analysis</b>
+          <p class="card-text mb-auto">{{ signal.price_action_analysis|safe }} 
+            <span>Timeframe: <b>{{ signal.pa_time_frame }}</b></span>
+          </p>
+
+          <b class="d-inline-block mb-2 text-primary-emphasis">Hints</b>
+          <p class="card-text mb-auto">{{ signal.hint|safe }}</p>
+
+          <div class="mb-1 text-body-secondary">Like <b>{{ signal.like }}</b></div>
+          
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

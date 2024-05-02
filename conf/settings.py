@@ -53,7 +53,8 @@ MY_APPS = [
 ]
 
 EXTERNAL_APPS_suffix = [
-    'ckeditor',
+    'whitenoise.runserver_nostatic', # for serve statics
+    'ckeditor', # for RichText editor
 ]
 
 INSTALLED_APPS = EXTERNAL_APPS_prefix + DJANGO_APPS + MY_APPS + EXTERNAL_APPS_suffix
@@ -63,6 +64,7 @@ INSTALLED_APPS = EXTERNAL_APPS_prefix + DJANGO_APPS + MY_APPS + EXTERNAL_APPS_su
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -195,7 +197,10 @@ if DEBUG:
     # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
     
 else:
+    STATIC_URL = 'static/'
     STATIC_ROOT = BASE_DIR / 'static'
+    STATICFILES_STORAGE = \
+        'whitenoise.storage.CompressedStaticFilesStorage'
     
     REDIS_HOST = config("REDIS_HOST_pro")
     REDIS_PORT = config("REDIS_PORT_pro")
@@ -234,4 +239,4 @@ else:
             "PORT": config("DB_PORT"),
         },
     }
-    
+

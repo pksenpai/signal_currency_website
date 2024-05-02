@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 
 from .forms import CreateSignalForm
+from .models import Signal
 
 
 class AddSignalView(View):
@@ -22,22 +23,30 @@ class AddSignalView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            form.save(user=request.user)
+            signal = form.save(user=request.user)
             messages.success(
                 request,
                 _("signal created successfuly!"),
                 extra_tags="success",
             )
-            return redirect('core:home') # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            return redirect('posts:details', signal.slug_title)
         
         return render(request, self.template_name, {'form': form})
     
+    
 class DetailSignalView(View):
+    form_class = ...
+    template_name = 'posts/details.html'
     
     def get(self, request, slug):
-        return HttpResponse("Hello world!")
+        signal = Signal.objects.get(slug_title=slug)
+        
+        context = {
+            "signal": signal,
+        }
+        
+        return render(request, self.template_name, context)
     
     def post(self, request, slug): # comments
         pass
-    
     

@@ -33,8 +33,12 @@
     
   </head>
   
-  <body style="background: url('/static/core/pics/{{ request.path|path_spliter:-2 }}.jpg') no-repeat fixed; background-size: 100% 100%;">
-      
+  {% if "details" in request.path %}
+    <body style="background: url('/static/core/pics/details.jpg') no-repeat fixed; background-size: 100% 100%;">
+  {% else %}
+    <body style="background: url('/static/core/pics/{{ request.path|path_spliter:-2 }}.jpg') no-repeat fixed; background-size: 100% 100%;">
+  {% endif %}
+    
     <header class="site-header">
       <div class="mt-5" style="position: fixed;">
         <br class="mt-4">
