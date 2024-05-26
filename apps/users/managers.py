@@ -29,6 +29,7 @@ class CustomUserManager(BaseUserManager):
             country=country,
             password=password,
         )
+        user.is_active = True
         user.is_admin = True
         user.save(using=self._db)
         return user

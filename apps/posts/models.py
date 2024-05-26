@@ -14,8 +14,8 @@ from ckeditor.fields import RichTextField
 class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     """\_____________[CHOICES]_____________/"""
     TARGET_MARKETS = (
-        ('EIR', 'Iran Exchanges'),
-        ('CRP', 'Crypto Currency'),
+        ('Iran Exchanges', 'Iran Exchanges'),
+        ('Crypto Currency', 'Crypto Currency'),
     )
     
     INVESTMENT_PERIOD_CHOICES = (
@@ -48,15 +48,15 @@ class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='signals')
     
     """\_____________[MAIN]_____________/"""
-    title      = models.CharField(max_length=100)
-    summary    = models.CharField(max_length=150)
+    title      = models.CharField(max_length=50)
+    summary    = models.CharField(max_length=100)
     slug_title = models.SlugField(unique=True)
     
     is_open = models.BooleanField(default=True)
     goal_datetime = models.DateTimeField()
     
     token = models.CharField(max_length=30)
-    target_market = models.CharField(max_length=3, choices=TARGET_MARKETS)
+    target_market = models.CharField(max_length=20, choices=TARGET_MARKETS)
     investment_period = models.CharField(max_length=1, choices=INVESTMENT_PERIOD_CHOICES, null=True, blank=True)
     direction = models.CharField(max_length=1, choices=DIRECTION_CHOICES, null=True, blank=True)
     max_range = models.PositiveSmallIntegerField(
@@ -89,9 +89,7 @@ class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     hints = RichTextField(null=True, blank=True)
     like = models.IntegerField(default=0)
     
-    def save(self):
-        super().save()
-        
+    def clean(self):
         if tz.now() >= self.goal_datetime:
             raise ValidationError("the goal datetime cann't be past!")
         

@@ -10,8 +10,8 @@
   <hr class="my-5">
   <hr class="my-5">
   <hr class="my-5">
-  <div class="row mx-5" style="color: white;">
-    <div class="w-100 px-0 my-3">
+  <div class="row mx-5 mb-5" style="color: white;">
+    <div class="w-100 px-0 my-3 mb-5">
       <div class="dropdown-menu h-100 position-static d-flex flex-lg-row p-3 rounded-3 shadow" data-bs-theme="dark">
       <div class="row g-0 rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
@@ -19,7 +19,7 @@
             <span class="me-2">{{ signal.title }} </span>
             {% if signal.direction == "U" %}
               {% if signal.max_range and signal.min_range %}
-                <span style="color: lime; font-size: 30px;">{{ signal.max_range }}-{{ signal.min_range }}</span>
+                <span style="color: lime; font-size: 30px;">{{ signal.min_range }} - {{ signal.max_range }}</span>
               {% else %}
                 <span style="color: lime; font-size: 30px;">?</span>
               {% endif %}
@@ -28,7 +28,7 @@
               </svg>
             {% else %}
               {% if signal.max_range and signal.min_range %}
-                <span style="color: red; font-size: 30px;">{{ signal.max_range }}-{{ signal.min_range }}</span>
+                <span style="color: red; font-size: 30px;">{{ signal.min_range }} - {{ signal.max_range }}</span>
               {% else %}
                 <span style="color: red; font-size: 30px;">?</span>
               {% endif %}
@@ -37,12 +37,12 @@
               </svg>
             {% endif %}
           </h2>
-          <strong class="d-inline-block mb-2 text-primary-emphasis">{{ signal.target_market }} ({{ signal.token }})</strong>
-
+          
           <div class="mb-1 text-body-secondary">Goal <b>{{ signal.goal_datetime }}</b></div>
           
           <br>
           
+          <strong class="d-inline-block mb-2 text-primary-emphasis pt-2">{{ signal.target_market }} [{{ signal.token }}]</strong>
           <b class="d-inline-block mb-2 text-primary-emphasis">Fundamental Analysis</b>
           <p class="card-text mb-auto">{{ signal.fundamental_analysis|safe }}</p>
           

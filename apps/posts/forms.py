@@ -2,6 +2,8 @@ from django import forms
 
 from django.core.exceptions import ValidationError
 
+from string import punctuation
+
 from .models import Signal
 from apps.users.models import Profile
 
@@ -33,17 +35,23 @@ class CreateSignalForm(forms.ModelForm):
         if not user:
             raise ValidationError("nice try!, but you are not authenticated!")
         
-        user_profile = Profile.objects.get(user=user)
-        last_id = Signal.objects.archive().latest('id').id
-        
         """ author is who creating this signal """
+        user_profile = Profile.objects.get(user=user)
         signal.author = user_profile
         
         """ remove the start and end spaces """
         signal.title = signal.title.strip()
+        signal.summary = signal.summary.strip()
         
-        """ slugify title for url by underscore & signal_id """
-        signal.slug_title = '_'.join(signal.title.split()) + str(last_id + 1)
+        """ set the summary for url """
+        signal.slug_title = '_'.join(
+            "".join(
+                filter(
+                    lambda char: not char in punctuation,
+                       signal.title + ' ' + signal.summary
+                    )
+                ).split()
+            )
         
         """ active or unactive signal at the first """
         signal.is_active = True
