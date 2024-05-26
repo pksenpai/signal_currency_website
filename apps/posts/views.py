@@ -39,6 +39,7 @@ class DetailSignalView(View):
     template_name = 'posts/details.html'
     
     def get(self, request, slug):
+        print('$'*20, slug)
         signal = Signal.objects.get(slug_title=slug)
         
         context = {
