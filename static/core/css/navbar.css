@@ -10,10 +10,13 @@ Bootstrap 5 Form Pack Template
 
 /* Fonts */
 @font-face {
-  font-family:STJEDISE;
-  src: url(../fonts/TM.ttf);
+  font-family:fontface1;
+  src: url(../fonts/1Dune_Rise.ttf);
 }
-
+@font-face {
+  font-family:fontface2;
+  src: url(../fonts/quickynick.ttf);
+}
 /*---------------------------------------
   CUSTOM PROPERTIES ( VARIABLES )             
 -----------------------------------------*/
