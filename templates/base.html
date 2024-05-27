@@ -68,8 +68,8 @@
                 <path fill-rule="evenodd" d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2"/>
               </svg>
               
-              <span style="color: aqua; font-family:STJEDISE;">
-                Signacu
+              <span style="color: aqua; font-family:fontface1; font-size: medium;">
+                FaraTahlil
               </span>
             </a>
             
@@ -91,16 +91,23 @@
                   <a href="#" class="d-block text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ image.url }}" alt="{{ alt }}" width="32" height="32" class="rounded-circle">
                   </a>
-                  <ul class="dropdown-menu text-small p-0" style="background-color: #212529e5; border-color: white;">
-                    <li><b class="dropdown-item text-center fw-bold py-0 px-auto" style="color: #eac88f;">< {{ request.user }} ></b></li>
+                  <ul class="dropdown-menu text-small p-0"
+                      style="
+                        background-color: #212529e5;
+                        border-color: white;
+                        font-family: fontface2;
+                      ">
+                    
+                      <li><b class="dropdown-item text-center fw-bold py-0 px-auto" style="color: #eac88f; font-size: 20px;">< {{ request.user }} ></b></li>
                     <li><hr class="dropdown-divider bg-white m-0 text-center"></li>
                     <li>
-                      <a class="dropdown-item text-center fw-bold py-2 px-auto" style="color: #eac88f; font-size: 15px;" href="{% url 'posts:add' %}">
+                      <a class="dropdown-item text-center fw-bold py-2 px-auto" style="color: #eac88f; font-size: large;" href="{% url 'posts:add' %}">
                          New Signal 
                       </a>
                     </li>
                     <li><hr class="dropdown-divider bg-white m-0 text-center"></li>
-                    <li><a class="dropdown-item text-center text-danger" href="{% url 'users:logout' %}">Logout</a></li>
+                    <li><a class="dropdown-item text-center text-danger" 
+                         style="font-size: large;" href="{% url 'users:logout' %}">Logout</a></li>
                   </ul>
                 </div>
               {% else %}
