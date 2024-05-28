@@ -1,11 +1,13 @@
 from django import forms
 
 from django.core.exceptions import ValidationError
-
-from string import punctuation
+from django.db.utils import IntegrityError
 
 from .models import Signal
 from apps.users.models import Profile
+
+import string
+import random
 
 
 class CreateSignalForm(forms.ModelForm):
@@ -54,20 +56,19 @@ class CreateSignalForm(forms.ModelForm):
         user_profile = Profile.objects.get(user=user)
         signal.author = user_profile
         
-        """ remove the start and end spaces """
-        signal.title = signal.title.strip()
-        signal.summary = signal.summary.strip()
-        
-        """ set the summary for url """
-        signal.slug_title = '_'.join(
+        """ Create Unique Slug from title """
+        signal.slug_title = '_'.join( # slugify!
             "".join(
                 filter(
-                    lambda char: not char in punctuation,
-                       signal.title + ' ' + signal.summary
+                    lambda char: not char in string.punctuation,
+                    signal.title.strip()
                     )
                 ).split()
             )
         
+        while Signal.objects.filter(slug_title=signal.slug_title).exists(): # unique test!
+            signal.slug_title += str(random.randint(0, 10))
+                
         """ active or unactive signal at the first """
         signal.is_active = True
         
