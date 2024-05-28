@@ -13,19 +13,22 @@
     <div class="row mx-5" style="color: white;">
       {% for signal in signals %}
         
-        <div class="w-100 px-0 my-3">
-          <div class="dropdown-menu h-100 position-static d-flex flex-lg-row p-3 rounded-3 shadow" data-bs-theme="dark">
-          <div class="row g-0  rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-primary-emphasis">{{ signal.target_market }} ({{ signal.token }})</strong>
+        <div class="w-100 px-0 h-50">
+          <div class="dropdown-menu h-75 position-static d-flex flex-lg-row p-3 rounded-3 shadow text-end border-info" 
+                style="margin-bottom: 5px;" data-bs-theme="dark">
+            
+            <div class="col d-flex flex-column position-static" style="padding: 12px; padding-bottom: 15px;">
               <h3 class="mb-0">{{ signal.title }}</h3>
-              <div class="mb-1 text-body-secondary">{{ signal.created_at }}</div>
-              <p class="card-text mb-auto">{{ signal.summary }}</p>
-              <a href="{% url 'posts:details' signal.slug_title %}" class="icon-link gap-1 icon-link-hover stretched-link">
+              <div class="mb-1 text-body-secondary mt-2"> تاریخ انتشار : {{ signal.created_at }} </div>
+
+              <br>
+
+              <strong class="d-inline-block text-primary-emphasis">[{{ signal.target_market }}] [{{ signal.token }}]</strong>
+              <p class="card-text mb-3">{{ signal.summary }}</p>
+              <a href="{% url 'posts:details' signal.slug_title %}" class="icon-link gap-1 icon-link-hover stretched-link mb-1">
                 read more...
               </a>
             </div>
-          </div>
           </div>
         </div>
 

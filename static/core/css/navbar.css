@@ -29,7 +29,8 @@ Bootstrap 5 Form Pack Template
   --custom-btn-bg-color:          #5fe0e0;
   --custom-btn-bg-hover-color:    #9524da;
   --dark-color:                   #000000;
-  --p-color:                      #717275;
+  --p-color:                      #eff1f4;
+  --f-color:                      #717275;
   --link-hover-color:             #9524da;
 
   --body-font-family:             'Poppins', sans-serif;
@@ -469,7 +470,7 @@ strong {
   border-radius: var(--border-radius-large);
   border-width: 2px;
   box-shadow: none;
-  color: var(--p-color);
+  color: var(--f-color);
   margin-bottom: 20px;
   padding: 10px;
   padding-left: 20px;

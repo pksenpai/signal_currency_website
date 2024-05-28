@@ -17,10 +17,25 @@ class CreateSignalForm(forms.ModelForm):
         exclude = ('author', 'slug_title', 'like')
         
         widgets = {
-            'target_market': forms.Select(attrs={'required': True, 'class': 'form-control'}),
-            'investment_period': forms.Select(attrs={'required': True, 'class': 'form-control'}),
-            'direction': forms.Select(attrs={'required': True, 'class': 'form-control'}),
-            'pa_time_frame': forms.Select(attrs={'required': True, 'class': 'form-control'}),
+            'target_market': forms.Select(attrs={
+                'required': True, 'class': 'form-control',
+                'style': 'padding-right: 100px;'
+            }),
+            
+            'investment_period': forms.Select(attrs={
+                'required': True, 'class': 'form-control',
+                'style': 'padding-right: 100px;'
+            }),
+            
+            'direction': forms.Select(attrs={
+                'required': True, 'class': 'form-control',
+                'style': 'padding-right: 105px;'
+            }),
+            
+            'pa_time_frame': forms.Select(attrs={
+                'required': True, 'class': 'form-control',
+                'style': 'padding-right: 137px;'
+            }),
             
             'entry_point': forms.NumberInput(attrs={
                 'type': 'number', 'step': "0.01", 
@@ -37,7 +52,7 @@ class CreateSignalForm(forms.ModelForm):
                 'style': 'margin: auto; margin-left: 25px; border-radius: 25px; height: 40px; padding-right: 20px; width: 300px;'
             }),
             
-            'goal_datetime':forms.TextInput(attrs={
+            'goal_datetime': forms.TextInput(attrs={
                 'required': True, 'type':'datetime-local', 
                 'style': 'border-radius: 25px; height: 40px; padding-left: 20px; width: 300px;'
             }),
