@@ -14,34 +14,32 @@ from ckeditor.fields import RichTextField
 class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     """\_____________[CHOICES]_____________/"""
     TARGET_MARKETS = (
-        ('Iran Exchanges', 'Iran Exchanges'),
-        ('Crypto Currency', 'Crypto Currency'),
+        ('سهام ایران', 'سهام ایران'),
+        ('ارز دیجیتال', 'ارز دیجیتال'),
     )
     
     INVESTMENT_PERIOD_CHOICES = (
-        ('L', 'Long time'),
-        ('M', 'Mid time'),
-        ('S', 'Short time'),
+        ('بلند مدت', 'بلند مدت'),
+        ('میان مدت', 'میان مدت'),
+        ('کوتاه مدت', 'کوتاه مدت'),
     )
     
     DIRECTION_CHOICES = (
-        ('U', 'Up'),
-        ('D', 'Down'),
+        ('خرید', 'خرید'),
+        ('فروش', 'فروش'),
     )
     
     TIME_FRAMES = (
-        ('-', 'Unlimited'),
-        ('1m', '1m'),
-        ('5m', '5m'),
-        ('15m', '15m'),
-        ('30m', '30m'),
-        ('1h', '1h'),
-        ('3h', '3h'),
-        ('5h', '5h'),
-        ('10h', '10h'),
-        ('1d', '1d'),
-        ('3d', '3d'),
-        ('1w', '1w'),
+        ('۱ دقیقه', '۱ دقیقه'),
+        ('۵ دقیقه', '۵ دقیقه'),
+        ('۱۵ دقیقه', '۱۵ دقیقه'),
+        ('۳۰ دقیقه', '۳۰ دقیقه'),
+        ('۱ ساعت', '۱ ساعت'),
+        ('۴ ساعت', '۴ ساعت'),
+        ('روز', 'روز'),
+        ('هفته', 'هفته'),
+        ('ماه', 'ماه'),
+        ('سال', 'سال'),
     )
     
     """\_____________[RELATIONS]_____________/"""
@@ -57,48 +55,53 @@ class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     
     token = models.CharField(max_length=30)
     target_market = models.CharField(max_length=20, choices=TARGET_MARKETS)
-    investment_period = models.CharField(max_length=1, choices=INVESTMENT_PERIOD_CHOICES, null=True, blank=True)
-    direction = models.CharField(max_length=1, choices=DIRECTION_CHOICES, null=True, blank=True)
-    max_range = models.PositiveSmallIntegerField(
-            default=None,
-            null=True,
-            blank=True,
-            validators=[
-                MinValueValidator(1),
-                MaxValueValidator(100)
-            ]
-        ) # 1% to 100%
+    investment_period = models.CharField(max_length=9, choices=INVESTMENT_PERIOD_CHOICES, null=True, blank=True)
+    direction = models.CharField(max_length=4, choices=DIRECTION_CHOICES, null=True, blank=True)
 
-    min_range = models.PositiveSmallIntegerField(
-            default=None,
-            null=True,
-            blank=True,
-            validators=[
-                MinValueValidator(0),
-                MaxValueValidator(100)
-            ]
-        ) # 0% to 100%
+    entry_point = models.FloatField(validators=[MinValueValidator(0)])
+    profit_limit = models.FloatField(validators=[MinValueValidator(0)]) # take_profit
+    loss_limit = models.FloatField(validators=[MinValueValidator(0)]) # stop_loss
+    
+    # max_range = models.PositiveSmallIntegerField(
+    #         default=None,
+    #         null=True,
+    #         blank=True,
+    #         validators=[
+    #             MinValueValidator(1),
+    #             MaxValueValidator(100)
+    #         ]
+    #     ) # 1% to 100%
+
+    # min_range = models.PositiveSmallIntegerField(
+    #         default=None,
+    #         null=True,
+    #         blank=True,
+    #         validators=[
+    #             MinValueValidator(0),
+    #             MaxValueValidator(100)
+    #         ]
+    #     ) # 0% to 100%
 
     
     fundamental_analysis  = RichTextField()
     technical_analysis    = RichTextField()
     price_action_analysis = RichTextField()
     
-    pa_time_frame = models.CharField(max_length=3, default='Unlimited', choices=TIME_FRAMES)
+    pa_time_frame = models.CharField(max_length=10, default='۱ ساعت', choices=TIME_FRAMES)
     
     hints = RichTextField(null=True, blank=True)
     like = models.IntegerField(default=0)
     
     def clean(self):
         if tz.now() >= self.goal_datetime:
-            raise ValidationError("the goal datetime cann't be past!")
+            raise ValidationError("تاریخ انقضا تحلیل نمیتواند گذشته باشد!")
         
-        if self.max_range and self.max_range:
-            if self.max_range <= self.min_range:
-                raise ValidationError("the max range cann't be less than or equal with the min range!")
+        if self.profit_limit and self.loss_limit:
+            if self.profit_limit <= self.loss_limit:
+                raise ValidationError("حد سود نمیتواند از حد ضرر کمتر باشد!")
         else:
-            if self.max_range or self.min_range:
-                raise ValidationError("both max & min range required!")
+            if self.profit_limit or self.loss_limit:
+                raise ValidationError("حد سود و حد ضرر نمیتواند خالی باشد!")
     
     def expire_signal(self):
         if tz.now() >= self.goal_datetime:
