@@ -134,9 +134,9 @@
                 </div>
 
                 <div class="form-check mb-4 ps-5 col-lg-12 col-md-12 col-12 text-center">
-                  <label class="form-check-label fw-bold text-light" for="agreeCheckbox">
+                  <label class="form-check-label fw-bold text-light" for="agreeCheckbox2">
                     من با شرایط خدمات و قوانین سایت موافقم
-                    <input class="form-check-input border-1 border-dark-subtle text-start" type="checkbox" value="" id="agreeCheckbox">
+                    <input class="form-check-input border-1 border-dark-subtle text-start" type="checkbox" value="" id="agreeCheckbox2">
                   </label>
                 </div>
 
@@ -161,8 +161,8 @@
 {% block js %}
   <script>
     function validateForm() {
-      var agreeCheckbox = document.getElementById("agreeCheckbox");
-      if (!agreeCheckbox.checked) {
+      var agreeCheckbox2 = document.getElementById("agreeCheckbox2");
+      if (!agreeCheckbox2.checked) {
         alert("You must agree to the Terms of Service and Privacy Policy before submitting.");
         return false;
       }

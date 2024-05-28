@@ -48,7 +48,7 @@ class Signal(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     """\_____________[MAIN]_____________/"""
     title      = models.CharField(max_length=50)
     summary    = models.CharField(max_length=100)
-    slug_title = models.SlugField(unique=True)
+    slug_title = models.SlugField(max_length=50, unique=True, allow_unicode=True)
     
     is_open = models.BooleanField(default=True)
     goal_datetime = models.DateTimeField()
