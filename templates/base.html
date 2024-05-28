@@ -2,7 +2,7 @@
 {% load base_tags %}
 
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="rtl">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -63,28 +63,6 @@
         <div class="row justify-content-between">
             
           <div class="col-lg-12 col-12 d-flex align-items-center">
-            <a class="site-header-text d-flex justify-content-center align-items-center me-auto" href="{% url "core:home" %}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-activity" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2"/>
-              </svg>
-              
-              <span style="color: aqua; font-family:fontface1; font-size: medium;">
-                FaraTahlil
-              </span>
-            </a>
-            
-            {% comment %} SEARCH BAR {% endcomment %}
-            {% if request.path == "/" %}
-              <ul class="social-icon d-flex justify-content-center align-items-center me-auto">
-                <form class="mb-3 pt-5" role="search" action="{{ request.path }}">
-                  <div class="sb-animate">
-                    <input name="searched" type="search" class="form-control-dark" placeholder="Search Signals..." aria-label="Search">
-                    <div class="search"></div>
-                  </div>
-                </form>
-              </ul>
-            {% endif %}
-
             <div>
               {% if user.is_authenticated %}
                 <div class="dropdown text-end">
@@ -102,23 +80,45 @@
                     <li><hr class="dropdown-divider bg-white m-0 text-center"></li>
                     <li>
                       <a class="dropdown-item text-center fw-bold py-2 px-auto" style="color: #eac88f; font-size: large;" href="{% url 'posts:add' %}">
-                         New Signal 
+                         تحلیل جدید
                       </a>
                     </li>
                     <li><hr class="dropdown-divider bg-white m-0 text-center"></li>
                     <li><a class="dropdown-item text-center text-danger" 
-                         style="font-size: large;" href="{% url 'users:logout' %}">Logout</a></li>
+                         style="font-size: large;" href="{% url 'users:logout' %}">خروج</a></li>
                   </ul>
                 </div>
               {% else %}
-                <a class="custom-btn custom-border-btn border-end-0 btn" href="{% url 'users:signup' %}">
-                  Sign Up
-                </a>
                 <a class="custom-btn custom-border-btn border-start-0 btn" href="{% url 'users:login' %}">
-                  Login
+                  ورود
+                </a>
+                <a class="custom-btn custom-border-btn border-end-0 btn" href="{% url 'users:signup' %}">
+                  ثبت نام
                 </a>
               {% endif %}
             </div>
+
+            {% comment %} SEARCH BAR {% endcomment %}
+            {% if request.path == "/" %}
+              <ul class="social-icon d-flex justify-content-center align-items-center me-auto">
+                <form class="mb-3 pt-5" role="search" action="{{ request.path }}">
+                  <div class="sb-animate">
+                    <input name="searched" type="search" class="form-control-dark" placeholder="جستجوی تحلیل..." aria-label="Search">
+                    <div class="search"></div>
+                  </div>
+                </form>
+              </ul>
+            {% endif %}
+
+            <a class="site-header-text d-flex justify-content-center align-items-center me-auto" href="{% url "core:home" %}">
+              <span style="color: aqua; font-family:fontface1; font-size: medium;">
+                TahlilBaaz
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-activity" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2"/>
+              </svg>
+            </a>
+
           </div>
 
         </div>

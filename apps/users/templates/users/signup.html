@@ -16,44 +16,44 @@
         <div class="row">
           <div class="col-lg-6 col-12 mx-auto">
             <form class="custom-form" role="form" method="post" onsubmit="return validateForm()" novalidate> {% csrf_token %}
-              <h2 class="hero-title text-center text-info mb-4 pb-2"> Signup </h2>
+              <h2 class="hero-title text-center text-info mb-4 pb-2"> ثبت نام </h2>
 
               <div class="row">
                 <div class="col-lg-12 col-12">
                   <div class="form-floating p-0">
-                    <input type="text" name="username" id="username" class="form-control" placeholder="Username" required="">
+                    <input style="padding-right: 25px;" type="text" name="username" id="username" class="form-control" placeholder="Username" required="">
 
-                    <label for="username">Username</label>
+                    <label for="username">نام کاربری</label>
                   </div>
                 </div>
                 
                 <div class="col-lg-8 col-12">
                   <div class="form-floating p-0">
-                    <input type="text" name="phone_number" id="phone_number" class="form-control" placeholder="933530****" required="">
+                    <input style="padding-right: 25px;" type="text" name="phone_number" id="phone_number" class="form-control" placeholder="933530****" required="">
 
-                    <label for="phone_number">Phone Number</label>
+                    <label for="phone_number">تلفن همراه</label>
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-12">
                   <div class="form-floating mb-4 p-0">
                     {{ form.country }}
-                    <label for="country">Country Number</label>
+                    <label for="country">کشور</label>
                   </div>
                 </div>
 
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-floating">
-                    <input type="password" name="password1" id="password1" class="form-control" placeholder="Password" required="">
+                    <input style="padding-right: 25px;" type="password" name="password1" id="password1" class="form-control" placeholder="Password" required="">
                     
-                    <label for="password1">Password</label>
+                    <label for="password1">رمز عبور</label>
                   </div>
                 </div>
                 
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-floating mb-4 p-0">
-                    <input type="password" name="password2" id="password2" class="form-control" placeholder="Check Password" required="">
+                    <input style="padding-right: 25px;" type="password" name="password2" id="password2" class="form-control" placeholder="Check Password" required="">
                     
-                    <label for="password2">Check Password</label>
+                    <label for="password2">بررسی رمز عبور</label>
                   </div>
                 </div>
                 
@@ -61,21 +61,20 @@
                   {{ form.errors }}
                 </div>
 
-                <div class="form-check mb-4 ps-5">
-                  <input class="form-check-input border-2 border-dark-subtle" type="checkbox" value="" id="agreeCheckbox">
-                
-                  <label class="form-check-label fw-bold" for="agreeCheckbox">
-                    I agree to the Terms of Service and Privacy Policy.
+                <div class="form-check mt-3 mb-4 ps-5 col-lg-12 col-md-12 col-12 text-center">
+                  <label class="form-check-label fw-bold text-light" for="agreeCheckbox">
+                    من با شرایط خدمات و سیاست حفظ حریم خصوصی موافقم.
+                    <input class="form-check-input border-2 border-dark-subtle" type="checkbox" value="" id="agreeCheckbox">
                   </label>
                 </div>
 
                 <div class="row justify-content-center align-items-center">
-                  <div class="col-lg-5 col-md-5 col-5">
-                    <button type="submit" class="form-control">Submit</button>
+                  <div class="col-lg-5 col-md-5 col-5 ms-4 me-3">
+                    <button type="submit" class="form-control">ثبت</button>
                   </div>
 
-                  <div class="col-lg-6 col-md-6 col-7">
-                    <p class="mb-0">Already have an account? <a href="{% url "users:login" %}" class="ms-2">Login</a></p>
+                  <div class="col-lg-4 col-md-4 col-5">
+                    <p class="mb-0">آیا حساب دارید؟ <a href="{% url 'users:login' %}" class="ms-2">ورود</a></p>
                   </div>
                 </div>
               </div>

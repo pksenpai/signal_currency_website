@@ -23,7 +23,7 @@ class UserRegisterForm(forms.ModelForm): # C
         )
         
         widgets = {
-            'country': forms.Select(attrs={'class': 'form-control'}),
+            'country': forms.Select(attrs={'class': 'form-control', 'style': 'padding-right: 100px;'}),
         }
     
     def clean_password2(self):

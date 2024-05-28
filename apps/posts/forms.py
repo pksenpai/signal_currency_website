@@ -20,10 +20,25 @@ class CreateSignalForm(forms.ModelForm):
             'direction': forms.Select(attrs={'required': True, 'class': 'form-control'}),
             'pa_time_frame': forms.Select(attrs={'required': True, 'class': 'form-control'}),
             
-            'max_range': forms.NumberInput(attrs={'type': 'number'}),
-            'min_range': forms.NumberInput(attrs={'type': 'number'}),
+            'entry_point': forms.NumberInput(attrs={
+                'type': 'number', 'step': "0.01", 
+                'style': 'margin: auto; border-radius: 25px; height: 40px; padding-right: 20px; width: 300px;'
+            }),
+
+            'profit_limit': forms.NumberInput(attrs={
+                'type': 'number', 'step': "0.01", 
+                'style': 'margin: auto; border-radius: 25px; height: 40px; padding-right: 20px; width: 300px;'
+            }),
+
+            'loss_limit': forms.NumberInput(attrs={
+                'type': 'number', 'step': "0.01",
+                'style': 'margin: auto; margin-left: 25px; border-radius: 25px; height: 40px; padding-right: 20px; width: 300px;'
+            }),
             
-            'goal_datetime':forms.TextInput(attrs={'required': True, 'type':'datetime-local'}),
+            'goal_datetime':forms.TextInput(attrs={
+                'required': True, 'type':'datetime-local', 
+                'style': 'border-radius: 25px; height: 40px; padding-left: 20px; width: 300px;'
+            }),
         }
     
     def save(self, commit=True, **kwargs):

@@ -12,23 +12,23 @@
       <div class="container">
         <div class="row mt-5">
             <form class="custom-form" role="form" method="post"> {% csrf_token %}
-              <h2 class="hero-title text-center text-info mb-4 pb-2"> New Signal </h2>
+              <h2 class="hero-title text-center text-info mb-4 pb-2"> تحلیل جدید </h2>
 
               <div class="row">
                 <div class="col-lg-12 col-12">
                   <div class="form-floating p-0">
-                    <input type="text" name="title" id="title" class="form-control" placeholder="Title" required="">
+                    <input type="text" name="title" id="title" class="form-control" placeholder="موضوع" required="">
 
-                    <label for="title">Title</label>
+                    <label for="title">عنوان</label>
                   </div>
 
                 </div>
                 
                 <div class="col-lg-12 col-12">
                   <div class="form-floating p-0">
-                    <input type="text" name="summary" id="summary" class="form-control" placeholder="Summary" required="">
+                    <input type="text" name="summary" id="summary" class="form-control" placeholder="خلاصه" required="">
 
-                    <label for="summary">Summary</label>
+                    <label for="summary">خلاصه</label>
                   </div>
 
                 </div>
@@ -36,7 +36,7 @@
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-floating">
                     {{ form.target_market }}
-                    <label for="target_market">Target Market</label>
+                    <label for="target_market">بازار هدف</label>
                   </div>
                 </div>
                 
@@ -44,42 +44,49 @@
                   <div class="form-floating mb-4 p-0">
                     <input type="token" name="token" id="token" class="form-control" placeholder="Token" required="">
                     
-                    <label for="token">Token</label>
+                    <label for="token">نام سهم/ ارز</label>
                   </div>
                 </div>
 
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-floating mb-4 p-0">
                     {{ form.investment_period }}
-                    <label for="investment_period">Investment Period</label>
+                    <label for="investment_period">دوره سرمایه گذاری</label>
                   </div>
                 </div>
                 
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-floating mb-4 p-0">
                     {{ form.direction }}
-                    <label for="direction">Direction</label>
+                    <label for="direction">موقعیت</label>
                   </div>
                 </div>
 
-                <div class="col-lg-4 col-md-4 col-12 text-center">
-                  <label class="fw-bold" for="fundamental_analysis" style="color: white;">Goal Datetime</label>
+                <div class="col-lg-3 col-md-3 col-12 text-center">
+                  <label class="fw-bold" for="fundamental_analysis" style="color: white;">تاریخ انقضا تحلیل</label>
                   <div class="form-floating mb-4 p-0">
                     {{ form.goal_datetime }}
                   </div>
                 </div>
 
-                <div class="col-lg-4 col-md-4 col-12 text-center">
-                  <label class="fw-bold" for="fundamental_analysis" style="color: white;">Max Goal</label>
+                <div class="col-lg-3 col-md-3 col-12 text-center">
+                  <label class="fw-bold" for="fundamental_analysis" style="color: white;">حد سود</label>
                   <div class="form-floating mb-4 p-0">
-                    {{ form.max_range }}
+                    {{ form.profit_limit }}
                   </div>
                 </div>
 
-                <div class="col-lg-4 col-md-4 col-12 text-center">
-                  <label class="fw-bold" for="fundamental_analysis" style="color: white;">Min Goal</label>
+                <div class="col-lg-3 col-md-3 col-12 text-center">
+                  <label class="fw-bold" for="fundamental_analysis" style="color: white;">حد ضرر</label>
                   <div class="form-floating mb-4 p-0">
-                    {{ form.min_range }}
+                    {{ form.loss_limit }}
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-12 text-center">
+                  <label class="fw-bold" for="fundamental_analysis" style="color: white;">نقطه ورود</label>
+                  <div class="form-floating mb-4 p-0">
+                    {{ form.entry_point }}
                   </div>
                 </div>
 
@@ -88,21 +95,21 @@
                 <!-- ---------------------------- -->
                 
                 <div class="col-lg-12 col-md-12 col-12 text-center">
-                  <label class="fw-bold" for="fundamental_analysis" style="color: white;">Fundamental Analysis</label>
+                  <label class="fw-bold" for="fundamental_analysis" style="color: white;">تحلیل فاندامنتال</label>
                   <div class="form-floating mb-4 p-0">
                     {{ form.fundamental_analysis }}
                   </div>
                 </div>
 
                 <div class="col-lg-12 col-md-12 col-12 text-center">
-                  <label class="fw-bold" for="technical_analysis" style="color: white;">Technical Analysis</label>
+                  <label class="fw-bold" for="technical_analysis" style="color: white;">تحلیل تکنیکال</label>
                   <div class="form-floating mb-4 p-0">
                     {{ form.technical_analysis }}
                   </div>
                 </div>
 
                 <div class="col-lg-12 col-md-12 col-12 text-center">
-                  <label class="fw-bold" for="price_action_analysis" style="color: white;">Price Action Analysis</label>
+                  <label class="fw-bold" for="price_action_analysis" style="color: white;">تحلیل Price-Action</label>
                   <div class="form-floating mb-4 p-0">
                     {{ form.price_action_analysis }}
                   </div>
@@ -111,12 +118,12 @@
                 <div class="col-lg-8 col-md-8 col-12" style="display: block; margin: auto;">
                   <div class="form-floating mb-4 py-0">
                     {{ form.pa_time_frame }}
-                    <label for="pa_time_frame">Time Frame</label>
+                    <label for="pa_time_frame">تایم فریم</label>
                   </div>
                 </div>
 
                 <div class="col-lg-12 col-md-12 col-12 text-center">
-                  <label class="fw-bold" for="hints" style="color: white;">Hint</label>
+                  <label class="fw-bold" for="hints" style="color: white;">نکات</label>
                   <div class="form-floating mb-4 p-0">
                     {{ form.hints }}
                   </div>
@@ -126,20 +133,19 @@
                   {{ form.errors }}
                 </div>
 
-                <div class="form-check mb-4 ps-5">
-                  <input class="form-check-input border-1 border-dark-subtle" type="checkbox" value="" id="agreeCheckbox">
-                
-                  <label class="form-check-label fw-bold" for="agreeCheckbox">
-                    I agree to the Terms of Service and Privacy Policy.
+                <div class="form-check mb-4 ps-5 col-lg-12 col-md-12 col-12 text-center">
+                  <label class="form-check-label fw-bold text-light" for="agreeCheckbox">
+                    من با شرایط خدمات و قوانین سایت موافقم
+                    <input class="form-check-input border-1 border-dark-subtle text-start" type="checkbox" value="" id="agreeCheckbox">
                   </label>
                 </div>
 
                 <div class="row justify-content-center align-items-center">
                   <div class="col-lg-3 col-md-3 col-6 mx-auto">
-                    <button type="submit" class="form-control">Submit</button>
+                    <button type="submit" class="form-control">ثبت تحلیل</button>
                   </div>
                   <div class="col-lg-3 col-md-3 col-6 mx-auto">
-                    <p class="mb-0 text-center">Do you want to quit? <a href="{% url 'core:home' %}" class="ms-2">yes</a></p>
+                    <p class="mb-0 text-center"><a href="{% url 'core:home' %}" class="ms-2">بازگشت به صفحه اصلی</a></p>
                   </div>
                 </div>
                 

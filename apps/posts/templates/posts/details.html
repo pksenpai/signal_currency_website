@@ -57,11 +57,31 @@
           <b class="d-inline-block mb-2 text-primary-emphasis">Hints</b>
           <p class="card-text mb-auto">{{ signal.hint|safe }}</p>
 
-          <div class="mb-1 text-body-secondary">Like <b>{{ signal.like }}</b></div>
+          <br>
+          <br>
+          <br>
+          <br>
+
+          <div class="mb-1 text-body-secondary" style="font-size: x-large;">Like <b>{{ signal.like }}</b></div>
           
         </div>
       </div>
       </div>
+    </div>
+    <div>
+      <div class="w-25 px-0 my-3 mb-5">
+        <div class="dropdown-menu h-100 position-static d-flex flex-lg-row p-3 rounded-3 shadow" data-bs-theme="dark">
+        <div class="row g-0 rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            
+            <br>
+            
+            <div class="mb-1 text-body-secondary" style="font-size: x-large;">Like <b>{{ signal.comment.like }}</b></div>
+            
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 {% endblock %}
