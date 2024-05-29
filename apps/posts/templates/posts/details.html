@@ -17,9 +17,9 @@
 
 {% block body %}
   <hr class="my-5">
-  <hr class="my-5">
-  <hr class="my-5">
-  <div class="row mx-5 mb-5" style="color: white;">
+  <hr class="my-lg-5">
+  <hr class="my-lg-4">
+  <div class="row mx-lg-5 mx-2 mb-5" style="color: white;">
     <div class="w-100 px-0 my-3 mb-5">
       <div class="dropdown-menu h-100 position-static d-flex flex-lg-row p-3 rounded-3 shadow" data-bs-theme="dark">
       <div class="row g-0 rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
@@ -53,7 +53,7 @@
             {% endif %}
           </h2>
           
-          <div class="mb-1 text-body-secondary mt-2"> تاریخ انقضا : {{ signal.goal_datetime }}</div>
+          <div class="mb-1 text-body-secondary mt-2 pe-3"> تاریخ انقضا : {{ signal.goal_datetime }}</div>
           
           <br>
           
@@ -85,7 +85,26 @@
           <br>
           <br>
 
-          <div class="mb-1 text-body-secondary" style="font-size: x-large;"> Like <b>{{ signal.like }}</b></div>
+          <div class="mb-1 text-body-secondary text-start" style="font-size: x-large;">
+            <button type="button" class="btn p-0 pb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="lime" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"></path>
+              </svg>
+            </button>  
+              {% if signal.like > 0 %}
+                <b style="color: cyan;">{{ signal.like }}</b>
+              {% elif signal.like == 0 %}
+                <b> 0 </b>
+              {% else %}
+                <b style="color: brown;">{{ signal.like }}</b>
+              {% endif %}
+
+              <button type="button" class="btn p-0 pb-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </button>  
+          </div>
           
         </div>
       </div>
@@ -93,21 +112,63 @@
     </div>
     <div>
 
-      <!-- {{ signal.comment.like }} -->
-      <div class="w-25 px-0 my-3 mb-5">
-        <div class="dropdown-menu h-100 position-static d-flex flex-lg-row p-3 rounded-3 shadow" data-bs-theme="dark">
-        <div class="row g-0 rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
-          <div class="col p-4 d-flex flex-column position-static">
-            
-            <br>
-            
-            <div class="mb-1 text-body-secondary" style="font-size: x-large;"> Like <b></b></div>
-            
+      {% for comment in signal.comments.all %}
+        <div class="col-lg-4 col-sm-auto ms-4 me-2 my-3 mb-0">
+          <div class="dropdown-menu h-100 position-static d-flex flex-lg-row p-2 pe-4 rounded-3 shadow" data-bs-theme="dark">
+            <div class="row  rounded overflow-hidden flex-md-row mb-2 h-md-250 position-relative text-end ps-3">
+              
+              <a class="mt-2 me-1" href="#">
+                <img src="{{ comment.author.image.url }}" alt="{{ comment.author.alt }}" width="32" height="32" class="rounded-circle">
+                {{ comment.author }}
+              </a>
+
+              <p class="mb-0 p-2">{{ comment.body|safe }}</p>
+              
+              <div class="mb-1 text-body-secondary text-start" style="font-size: x-large;">
+                <button type="button" class="btn p-0 pb-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="lime" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                    <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"></path>
+                  </svg>
+                </button>  
+                <b style="color: cyan;">{{ comment.like }}</b>
+                <button type="button" class="btn p-0 pb-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                  </svg>
+                </button>  
+              </div>
+
+            </div>
           </div>
         </div>
-      </div>
+        
+        {% for reply in comment.replies.all %}
+          <div class="col-lg-7 col-sm-auto px-0 me-5 pe-2">
+            <div class="dropdown-menu position-static d-flex flex-lg-row p-2 rounded-3 shadow" data-bs-theme="dark">
+              <div class="row g-0 rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
+                <div class="col d-flex flex-column position-static text-end">
+                  <p class="mb-0 pt-3 px-2">
+                    <a class="mt-2 me-1" href="#">
+                      <img src="{{ comment.author.image.url }}" alt="{{ comment.author.alt }}" width="32" height="32" class="rounded-circle">
+                      {{ comment.author }}
+                    </a>
+                    <span class="me-2"> {{ reply.body }} </span>
+                  </p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endfor %}
 
     </div>
+  </div>
+
+  <div class="text-end">
+    <ul>
+        
+    </ul>
   </div>
 {% endblock %}
 

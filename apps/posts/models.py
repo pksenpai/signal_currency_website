@@ -137,7 +137,7 @@ class Comment(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
 class Reply(LogicalBaseModel, TimeStampBaseModel, StatusMixin):
     """\_____________[RELATIONS]_____________/"""
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='replies')
-    reply = models.ForeignKey('self', on_delete=models.CASCADE, related_name='replies')
+    reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
     
     """\_____________[MAIN]_____________/"""
     body = models.CharField(max_length=150)
